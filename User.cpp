@@ -6,14 +6,23 @@
 // File:      User.cpp
 // Description:
 //
+
 #include "User.h"
 
+using namespace std;
+
 //constructor for user. takes in parameters and initiallizes it's fields.
-User::User(std::string &username, std::string &buffer, HashTagList* hashtaglist) {
-    friends = new FriendList();
-    wallPage = new WallPage(&buffer, username);
-    homePage = new HomePage(&buffer, username, *friends, hashtaglist);
+User::User(std::string &username) {
+    friends = new FriendList(username);
+    wallPage = new WallPage(username);
+    homePage = new HomePage(username);
     User::username = username;
+    fstream createFile(username, fstream::out | fstream::app);
+    createFile.close();
+}
+
+User::User(){
+    
 }
 
 //returns User's username

@@ -8,6 +8,9 @@
 //
 #ifndef RLP0035_homepage
 #define RLP0035_homepage
+#include <iostream>
+#include <fstream>
+#include "Menu.h"
 #include "main.h"
 #include "Hashtaglist.h"
 #include "Friendlist.h"
@@ -19,7 +22,7 @@ private:
     FriendList* friendlist;
     std::string* buffer;
 public:
-    HomePage(std::string* buffer, std::string username, FriendList& friendlist, HashTagList* hashtaglist);
+    HomePage(std::string username);
     void show();
 };
 #endif

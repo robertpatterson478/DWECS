@@ -9,6 +9,7 @@
 #ifndef RLP0035_user
 #define RLP0035_user
 #include <string>
+#include <fstream>
 #include "Homepage.h"
 #include "Friendlist.h"
 #include "main.h"
@@ -22,7 +23,8 @@ private:
     HomePage* homePage;
     std::string buffer;
 public:
-    User(std::string &username, std::string &buffer, HashTagList* hashtaglist);
+    User();
+    User(std::string &username);
     std::string toString();
     bool makeFriend(std::string &username);
     void showHomePage();

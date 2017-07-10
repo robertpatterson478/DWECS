@@ -11,8 +11,12 @@
 // but is currently limited to one user at a time.
 //
 #include "Friendlist.h"
-#include <string>
 using namespace std;
+
+FriendList::FriendList(string username){
+    
+    
+}
 
 //adds friend to physical friend list.
 bool FriendList::addFriend(string username){

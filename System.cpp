@@ -11,17 +11,13 @@
 // see all activity by topic, friend, or self. fully-fledged social system,
 // but is currently limited to one user at a time.
 //
+
 #include "System.h"
-#include "Menu.h"
-#include <iostream>
-#include "Hashtaglist.h"
-#include "main.h"
-#include "User.h"
+
 using namespace std;
 
 System::System(){
-    currentUserIndex = 0;
-    hashtaglist = HashTagList();
+    User currentUser;
 }
 
 //switch statement and menu allowing System to do operations
@@ -67,12 +63,10 @@ void System::handleError(){
 
 //posts message to message buffer
 void System::post(){
-    if(userList.empty()){
-        cout << "\nNot signed in!\n";
-        return;
-    }
+    string messageBuffer = "";
     string temp;
-    messageBuffer+= "(*" + userList[currentUserIndex].toString() + "*)";
+    
+    //messageBuffer+= "(*" + userList[currentUserIndex].toString() + "*)";
     messageBuffer+= Menu::getMessage();
 }
 
@@ -84,7 +78,7 @@ void System::createNewUser(){
         return;
     }
     Menu::convertCase(username);
-    if(isValidUser(username) != INVALID){
+    if(isValidUser(username)){
         cout << "\nAlready a user!\n";
         return;
     }
@@ -92,61 +86,42 @@ void System::createNewUser(){
         cout << "\nYour username contains invalid character(s)!\n";
         return;
     }
-    User newUser(username, messageBuffer, &hashtaglist);
-    userList.push_back(newUser);
-    currentUserIndex = (int)userList.size() - 1;
+    currentUser = new User(username);
     cout << endl;
     Menu::userWelcome(username, !RETURNING);
 }
 
 //simply searches and changes vector index if found to sign in another user
 void System::changeUser(){
-    if(userList.empty()){
-        cout << "\nCurrently no users exist!\n";
-        return;
-    }
     string user = Menu::getUserName();
-    int valid = isValidUser(user);
-    if(valid == currentUserIndex){
-        cout << "\nAlready Signed in, " + user + "!\n";
+    if(isValidUser(user)){
+        delete currentUser;
+        currentUser = new User(user);
         return;
     }
-    if(valid != INVALID){
-        Menu::userWelcome(user, RETURNING);
-        currentUserIndex = valid;
-        return;
-    }
-    cout << "\nSpecified user does not exist. Please try again.\n";
+    cout << "\nSpecified user does not exist or could not be accessed. Please try again.\n";
 }
 
 //checks if the user has been created yet
 int System::isValidUser(string &username){
     Menu::convertCase(username);
-    int i;
-    for(i = 0; i < userList.size(); i++){
-        if(userList[i].toString() == username){
-            return i;
-        }
+    fstream userTest(username);
+    if(userTest.fail()){
+        return false;
     }
-    return INVALID;
+    return true;
 }
 
 //shows the home page of the current user if signed in.
 void System::showHome(){
-    if(userList.empty()){
-        cout << "\nNot signed in!\n";
-        return;
-    }
-    userList[currentUserIndex].showHomePage();
+
+    currentUser->showHomePage();
 }
 
 //shows the home page of the current user if signed in.
 void System::showWall(){
-    if(userList.empty()){
-        cout << "\nNot signed in!\n";
-        return;
-    }
-    userList[currentUserIndex].showWallPage();
+    
+    currentUser->showWallPage();
 }
 
 //calls menu to output a nice "goodbye" message before system quits
@@ -156,10 +131,7 @@ void System::quit(){
 
 //if user is signed in and input is good, updates system-wide hashtag list for current user to follow a hashtag
 void System::followHashtag(){
-    if(userList.empty()){
-        cout << "\nNot signed in!\n";
-        return;
-    }
+    
     string hashtag = Menu::getHashTag();
     if(hashtag.empty()){
         cout << "\nHashtag cannot be empty!\n";
@@ -170,29 +142,16 @@ void System::followHashtag(){
     }
     Menu::convertCase(hashtag);
     hashtag[0] = tolower(hashtag[0]);
-    if(hashtaglist.followHashtag(userList[currentUserIndex].toString(), hashtag)){
-        return;
-    }
     cout << "\nAlready a follower!\n";
 }
 
 //friends a user by adding him/her to current users friend list by the username string
 void System::friendUser(){
-    if(userList.empty()){
-        cout << "\nNot signed in!\n";
-        return;
-    }
+
     string username = Menu::getUserName();
     int valid = isValidUser(username);
     if(valid == INVALID){
         cout << "\nUser does not exist yet!\n";
         return;
-    }
-    if(valid == currentUserIndex){
-        cout << "\nCannot friend yourself!\n";
-        return;
-    }
-    if(!userList[currentUserIndex].makeFriend(username)){
-        cout << "\nAlready your friend!\n";
     }
 }

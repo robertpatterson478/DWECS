@@ -10,14 +10,13 @@
 #define RLP0035_friendlist
 #include <string>
 #include <vector>
-
-
+#include "main.h"
 class FriendList{
 private:
     std::vector<std::string> list;
 public:
+    FriendList(std::string username);
     bool addFriend(std::string username);
     bool isAlreadyFriend(std::string username);
-    
 };
 #endif

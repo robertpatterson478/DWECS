@@ -9,18 +9,17 @@
 
 #ifndef RLP0035_wallpage
 #define RLP0035_wallpage
+#include "Menu.h"
+#include <iostream>
 #include "main.h"
 #include <string>
-
-
+#include <fstream>
 class WallPage{
 private:
     std::string *buffer;
     std::string username;
 public:
-    WallPage(std::string *buffer, std::string username);
+    WallPage(std::string username);
     void show();
 };
-
-
 #endif

@@ -8,10 +8,10 @@
 //
 #ifndef RLP0035_hashtaglist
 #define RLP0035_hashtaglist
-
 #include "main.h"
 #include <vector>
 #include <string>
+#include <fstream>
 
 class HashTagList{
 private:

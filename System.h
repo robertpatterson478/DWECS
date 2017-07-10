@@ -12,15 +12,13 @@
 #include <string>
 #include "Hashtaglist.h"
 #include <vector>
+#include <ctime>
 #include "User.h"
 
 
 class System{
 private:
-    std::string messageBuffer;
-    int currentUserIndex;
-    HashTagList hashtaglist;
-    std::vector<User> userList;
+    User* currentUser;
     int isValidUser(std::string &username);
     void handleError();
     void createNewUser();

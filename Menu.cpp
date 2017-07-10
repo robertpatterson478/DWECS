@@ -7,9 +7,8 @@
 // File:      Menu.cpp
 // Description:
 //
-#include <iostream>
+
 #include "Menu.h"
-#include "main.h"
 using namespace std;
 
 //shows main menu

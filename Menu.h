@@ -9,9 +9,9 @@
 //
 #ifndef RLP0035_menu
 #define RLP0035_menu
+#include "main.h"
 #include <string>
-
-
+#include <iostream>
 class Menu{
 private:
 public:

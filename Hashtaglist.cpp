@@ -7,8 +7,6 @@
 // Description:
 //
 #include "Hashtaglist.h"
-#include <string>
-#include <vector>
 using namespace std;
 
 //follows hashtag. uses a double vector. if it is not already a hashtag, then
