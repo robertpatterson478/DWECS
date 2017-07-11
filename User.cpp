@@ -17,7 +17,7 @@ User::User(std::string &username) {
     wallPage = new WallPage(username);
     homePage = new HomePage(username);
     User::username = username;
-    fstream createFile(username, fstream::out | fstream::app);
+    fstream createFile(username.c_str(), fstream::out | fstream::app);
     createFile.close();
 }
 

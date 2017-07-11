@@ -105,7 +105,7 @@ void System::changeUser(){
 //checks if the user has been created yet
 int System::isValidUser(string &username){
     Menu::convertCase(username);
-    fstream userTest(username);
+    fstream userTest(username.c_str());
     if(userTest.fail()){
         return false;
     }
