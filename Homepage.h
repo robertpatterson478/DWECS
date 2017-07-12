@@ -14,6 +14,7 @@
 #include "main.h"
 #include "Hashtaglist.h"
 #include "Friendlist.h"
+#include <dirent.h>
 
 class HomePage{
 private:

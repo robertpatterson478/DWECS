@@ -114,7 +114,6 @@ int System::isValidUser(string &username){
 
 //shows the home page of the current user if signed in.
 void System::showHome(){
-
     currentUser->showHomePage();
 }
 
@@ -149,8 +148,7 @@ void System::followHashtag(){
 void System::friendUser(){
 
     string username = Menu::getUserName();
-    int valid = isValidUser(username);
-    if(valid == INVALID){
+    if(isValidUser(username)){
         cout << "\nUser does not exist yet!\n";
         return;
     }
