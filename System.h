@@ -13,6 +13,8 @@
 #include "Hashtaglist.h"
 #include <vector>
 #include <ctime>
+#include <sys/stat.h>
+#include <sys/types.h>
 #include "User.h"
 
 

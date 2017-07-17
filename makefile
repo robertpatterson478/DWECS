@@ -17,4 +17,4 @@ Wallpage.o:main.h Wallpage.h Menu.h Wallpage.cpp
 User.o:Homepage.h Friendlist.h Wallpage.h User.h main.h User.cpp
 	g++ -c User.cpp
 clean:
-	rm -rf Hashtaglist.o RLP0035_2.o Friendlist.o System.o Menu.o Homepage.o Wallpage.o User.o messenger
+	rm -rf Hashtaglist.o RLP0035_2.o Friendlist.o System.o Menu.o Homepage.o Wallpage.o User.o messenger Friends Topics Hashtags Users

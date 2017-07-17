@@ -18,6 +18,10 @@ using namespace std;
 
 System::System(){
     User currentUser;
+    mkdir("Users", S_IRWXU);
+    mkdir("Hashtags", S_IRWXU);
+    mkdir("Friends", S_IRWXU);
+    mkdir("Topics", S_IRWXU);
 }
 
 //switch statement and menu allowing System to do operations
