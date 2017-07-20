@@ -13,6 +13,7 @@ using namespace std;
 HomePage::HomePage(string username){
     
     HomePage::username = username;
+    this -> hashtaglist = new HashTagList(username);
 }
 
 void HomePage::show(){

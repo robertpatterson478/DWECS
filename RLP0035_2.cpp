@@ -11,7 +11,9 @@
 // see all activity by topic, friend, or self. fully-fledged social system,
 // but is currently limited to one user at a time.
 //
-// How to compile: run command "make"
+// How to compile: run command "make clean"
+// this will clean all old files and also old Users' files
+//                 run command "make"
 // How to run: run command "./messenger"
 //
 //

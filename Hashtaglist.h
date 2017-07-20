@@ -17,6 +17,7 @@ class HashTagList{
 private:
     std::vector< std::vector<std::string> > hashtaglist;
 public:
+    HashTagList(const std::string& username);
     bool followHashtag(std::string username, std::string hashtag);
     bool isFollower(std::string username, std::string hashtag);
     int isValidHashtag(std::string hashtag);

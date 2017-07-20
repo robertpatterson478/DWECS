@@ -10,6 +10,7 @@
 #define RLP0035_friendlist
 #include <string>
 #include <vector>
+#include <fstream>
 #include "main.h"
 class FriendList{
 private:

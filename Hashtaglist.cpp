@@ -9,11 +9,11 @@
 #include "Hashtaglist.h"
 using namespace std;
 
-//follows hashtag. uses a double vector. if it is not already a hashtag, then
-//it creates a new string vector and adds the hashtag as the first element(the first element of
-//every vector in double vector is used for this) then pushes the second element as
-//the user who wanted to follow this hashtag. then pushes the vector on the double
-//vector.
+HashTagList::HashTagList(const string& username){
+    fstream createFriendFile(("Hashtags/" + username + ".Hashtag").c_str(), fstream::out | fstream::app);
+    
+}
+
 bool HashTagList::followHashtag(string username, string hashtag){
     if(isFollower(username, hashtag)){
         return false;

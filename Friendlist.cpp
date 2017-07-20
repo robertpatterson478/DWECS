@@ -14,7 +14,7 @@
 using namespace std;
 
 FriendList::FriendList(string username){
-    
+    fstream createFriendFile(("Friends/" + username + ".Friends").c_str(), fstream::out | fstream::app);
     
 }
 
