@@ -85,7 +85,7 @@ string Menu::getMessage(){
         if(temp == "#$"){
             break;
         }
-        message+= temp + "\n";
+        message+= temp + "&&";
     }
     cout << endl;
     return message;

@@ -11,11 +11,11 @@ using namespace std;
 
 // actually shows all user's messages, user's friend's messages, and messages from followed hashtags from buffer.
 HomePage::HomePage(string username){
-    
     HomePage::username = username;
     this -> hashtaglist = new HashTagList(username);
 }
 
 void HomePage::show(){
-    
+	FriendList::getData(username);
+	HashTagList::getData(username);
 }

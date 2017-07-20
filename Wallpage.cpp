@@ -19,5 +19,28 @@ WallPage::WallPage(string username){
 //uses rfind and friend and hashtag checking to find out
 //which messages and users to print.
 void WallPage::show(){
-    
+    fstream wallFile(("Users/" + username + ".Messages").c_str(), fstream::in);
+    if(wallFile.fail() || wallFile.peek() == std::ifstream::traits_type::eof()){
+		return; //if no messages
+		}
+    string stringBuffer;
+    wallFile >> stringBuffer;
+    string currentMessage;
+    unsigned long pos = stringBuffer.rfind("{*"); //first message start
+    unsigned long amppos;
+    cout << ">";
+    cout << stringBuffer.substr(stringBuffer.find("*}", pos) + 2, stringBuffer.length() - stringBuffer.find("*}", pos)); // first message
+    cout << endl << endl;
+    while(pos != 0 && pos < stringBuffer.length()){
+	pos = stringBuffer.rfind("*}", pos) + 2; //find start of message
+	amppos = pos;
+	//print sub Message
+	while(amppos < stringBuffer.find("{*", pos)){
+		amppos = stringBuffer.find("&&", amppos + 1);
+		cout << stringBuffer.substr(amppos + 2,  stringBuffer.find("&&", amppos + 1) - amppos - 1) << endl << endl;
+		}
+	currentMessage = stringBuffer.substr(pos, stringBuffer.find("{*", pos + 1) - pos - 1);
+    pos = stringBuffer.rfind("{*", pos - 1);
+}
+    wallFile.close();
 }

@@ -16,13 +16,10 @@ User::User(std::string &username) {
     friends = new FriendList(username);
     wallPage = new WallPage(username);
     homePage = new HomePage(username);
+    hashtaglist = new HashTagList(username);
     User::username = username;
     fstream createFile(("Users/" + username + ".Messages").c_str(), fstream::out | fstream::app);
     createFile.close();
-}
-
-User::User(){
-    
 }
 
 //returns User's username
@@ -43,4 +40,8 @@ void User::showWallPage(){
 //returns false if already friends, else adds to friend list and returns true.
 bool User::makeFriend(std::string &username){
     return friends->addFriend(username);
+}
+
+bool User::followHashtag(std::string &hashtag){
+    return hashtaglist->followHashtag(hashtag);
 }

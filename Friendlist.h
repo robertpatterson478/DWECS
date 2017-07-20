@@ -15,9 +15,11 @@
 class FriendList{
 private:
     std::vector<std::string> list;
+    std::string username;
 public:
+	static int getData(std::string username);
     FriendList(std::string username);
-    bool addFriend(std::string username);
-    bool isAlreadyFriend(std::string username);
+    bool addFriend(std::string friend1);
+    bool isAlreadyFriend(std::string friend1);
 };
 #endif

@@ -14,6 +14,7 @@
 #include "Friendlist.h"
 #include "main.h"
 #include "Wallpage.h"
+#include "Hashtaglist.h"
 
 class User{
 private:
@@ -21,12 +22,14 @@ private:
     WallPage* wallPage;
     FriendList* friends;
     HomePage* homePage;
+    HashTagList* hashtaglist;
     std::string buffer;
 public:
     User();
     User(std::string &username);
     std::string toString();
     bool makeFriend(std::string &username);
+    bool followHashtag(std::string &hashtag);
     void showHomePage();
     void showWallPage();
 };

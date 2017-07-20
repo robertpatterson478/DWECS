@@ -17,7 +17,7 @@
 using namespace std;
 
 System::System(){
-    User currentUser;
+    currentUser = NULL;
     mkdir("Users", S_IRWXU);
     mkdir("Hashtags", S_IRWXU);
     mkdir("Friends", S_IRWXU);
@@ -67,11 +67,19 @@ void System::handleError(){
 
 //posts message to message buffer
 void System::post(){
+	if(currentUser == NULL){
+		cout << "Not Logged in!" << endl;
+		return;
+	}
     string messageBuffer = "";
     string temp;
-    
-    //messageBuffer+= "(*" + userList[currentUserIndex].toString() + "*)";
+    time_t ts;
+    time(&ts);
+    messageBuffer+= "{*" + to_string((long long)ts) + "*}";
     messageBuffer+= Menu::getMessage();
+    fstream postFile(("Users/" + currentUser -> toString() + ".Messages").c_str(), ios::out | ios::app);
+    postFile << messageBuffer;
+    postFile.close();
 }
 
 //creates a new user if input is not bad
@@ -99,7 +107,9 @@ void System::createNewUser(){
 void System::changeUser(){
     string user = Menu::getUserName();
     if(isValidUser(user)){
-        delete currentUser;
+		if(currentUser != NULL){
+         delete currentUser;
+	}
         currentUser = new User(user);
         return;
     }
@@ -109,7 +119,7 @@ void System::changeUser(){
 //checks if the user has been created yet
 int System::isValidUser(string &username){
     Menu::convertCase(username);
-    fstream userTest(username.c_str());
+    fstream userTest(("Users/" + username + ".Messages").c_str());
     if(userTest.fail()){
         return false;
     }
@@ -118,12 +128,17 @@ int System::isValidUser(string &username){
 
 //shows the home page of the current user if signed in.
 void System::showHome(){
+	 if(currentUser == NULL){
+		return;
+		}
     currentUser->showHomePage();
 }
 
 //shows the home page of the current user if signed in.
 void System::showWall(){
-    
+    if(currentUser == NULL){
+		return;
+		}
     currentUser->showWallPage();
 }
 
@@ -134,7 +149,9 @@ void System::quit(){
 
 //if user is signed in and input is good, updates system-wide hashtag list for current user to follow a hashtag
 void System::followHashtag(){
-    
+	if(currentUser == NULL){
+		cout << "Not logged in!" << endl;
+		}
     string hashtag = Menu::getHashTag();
     if(hashtag.empty()){
         cout << "\nHashtag cannot be empty!\n";
@@ -145,15 +162,21 @@ void System::followHashtag(){
     }
     Menu::convertCase(hashtag);
     hashtag[0] = tolower(hashtag[0]);
-    cout << "\nAlready a follower!\n";
+    if(!(currentUser -> followHashtag(hashtag))){
+		cout << "\nAlready a follower!\n";
+		}
+    
 }
 
 //friends a user by adding him/her to current users friend list by the username string
 void System::friendUser(){
-
-    string username = Menu::getUserName();
-    if(isValidUser(username)){
-        cout << "\nUser does not exist yet!\n";
-        return;
-    }
+	if(currentUser == NULL){
+		cout << "Not logged in!" << endl;
+		return;
+		}
+	string username = Menu::getUserName();
+	Menu::convertCase(username);
+	if(!(currentUser -> makeFriend(username))){
+			cout << "You are already friends!" << endl;
+		}
 }

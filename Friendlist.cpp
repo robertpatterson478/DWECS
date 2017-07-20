@@ -11,29 +11,42 @@
 // but is currently limited to one user at a time.
 //
 #include "Friendlist.h"
+#include <iostream>
 using namespace std;
 
 FriendList::FriendList(string username){
     fstream createFriendFile(("Friends/" + username + ".Friends").c_str(), fstream::out | fstream::app);
-    
+    this -> username = username;
+    createFriendFile.close();
 }
 
 //adds friend to physical friend list.
-bool FriendList::addFriend(string username){
-    if(isAlreadyFriend(username)){
-        return false;
-    }
-    list.push_back(username);
-    return true;
+bool FriendList::addFriend(string friend1){
+    fstream createFriend(("Friends/" + username + ".Friends").c_str(), fstream::out | fstream::app);
+    if(!isAlreadyFriend(friend1)){
+		createFriend << friend1 << endl;
+		createFriend.close();
+		return true;
+	}
+	createFriend.close();
+	return false;
 }
 
 //returns whether the user is already friends with inputed username
-bool FriendList::isAlreadyFriend(string username){
-    int i = 0;
-    for(i = 0; i < list.size(); i++){
-        if(list[i] == username){
-            return true;
-        }
-    }
-    return false;
+bool FriendList::isAlreadyFriend(string friend1){
+	fstream checkFriend(("Friends/" + username + ".Friends").c_str(), fstream::in);
+	string temp;
+	while(!checkFriend.eof()){
+		checkFriend >> temp;
+		if(temp == friend1){
+			checkFriend.close();
+			return true;
+			}
+		}
+	checkFriend.close();
+	return false;
 }
+
+static int FriendList::getData(string username){
+	return 0;
+	}
