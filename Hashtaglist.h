@@ -18,7 +18,7 @@ private:
     std::vector< std::vector<std::string> > hashtaglist;
     std::string username;
 public:
-	static int getData(std::string username);
+    int getData();
     HashTagList(const std::string& username);
     bool followHashtag(std::string hashtag);
     bool isFollower(std::string hashtag);

@@ -50,6 +50,6 @@ bool HashTagList::isValidHashtag(string hashtag){
 	return validate.fail();
 }
 
-static int HashTagList::getData(string username){
+int HashTagList::getData(){
 	return 0;
 	}

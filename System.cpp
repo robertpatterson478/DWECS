@@ -80,6 +80,7 @@ void System::post(){
     fstream postFile(("Users/" + currentUser -> toString() + ".Messages").c_str(), ios::out | ios::app);
     postFile << messageBuffer;
     postFile.close();
+    unsigned long hashpos = 0;
 }
 
 //creates a new user if input is not bad

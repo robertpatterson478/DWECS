@@ -47,6 +47,6 @@ bool FriendList::isAlreadyFriend(string friend1){
 	return false;
 }
 
-static int FriendList::getData(string username){
+int FriendList::getData(){
 	return 0;
 	}

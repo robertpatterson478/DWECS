@@ -16,6 +16,8 @@ HomePage::HomePage(string username){
 }
 
 void HomePage::show(){
-	FriendList::getData(username);
-	HashTagList::getData(username);
+	FriendList fs(username);
+	HashTagList htl(username);
+        int list1 = fs.getData();
+	int list2 = htl.getData();
 }

@@ -17,7 +17,7 @@ private:
     std::vector<std::string> list;
     std::string username;
 public:
-	static int getData(std::string username);
+    int getData();
     FriendList(std::string username);
     bool addFriend(std::string friend1);
     bool isAlreadyFriend(std::string friend1);

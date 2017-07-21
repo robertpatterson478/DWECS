@@ -23,24 +23,33 @@ void WallPage::show(){
     if(wallFile.fail() || wallFile.peek() == std::ifstream::traits_type::eof()){
 		return; //if no messages
 		}
+    string temp;
     string stringBuffer;
-    wallFile >> stringBuffer;
-    string currentMessage;
-    unsigned long pos = stringBuffer.rfind("{*"); //first message start
-    unsigned long amppos;
-    cout << ">";
-    cout << stringBuffer.substr(stringBuffer.find("*}", pos) + 2, stringBuffer.length() - stringBuffer.find("*}", pos)); // first message
-    cout << endl << endl;
-    while(pos != 0 && pos < stringBuffer.length()){
-	pos = stringBuffer.rfind("*}", pos) + 2; //find start of message
-	amppos = pos;
-	//print sub Message
-	while(amppos < stringBuffer.find("{*", pos)){
-		amppos = stringBuffer.find("&&", amppos + 1);
-		cout << stringBuffer.substr(amppos + 2,  stringBuffer.find("&&", amppos + 1) - amppos - 1) << endl << endl;
-		}
-	currentMessage = stringBuffer.substr(pos, stringBuffer.find("{*", pos + 1) - pos - 1);
-    pos = stringBuffer.rfind("{*", pos - 1);
+	while(!wallFile.eof()){
+    wallFile >> temp;
+    stringBuffer+= temp + " ";
 }
+
+    string currentMessage;
+    unsigned long pos = stringBuffer.find("&&"); //first message start
+    while(pos < stringBuffer.size()){
+	stringBuffer.replace(pos, 2, "\n");
+	pos = stringBuffer.find("&&");
+}
+int count = 0;
+pos = stringBuffer.rfind("*}");
+//cout << stringBuffer.substr(pos + 2, stringBuffer.length() - pos - 2);
+while(stringBuffer.rfind("{*", pos) != 0){
+     if(count == 2 && !Menu::promptMoreMessages()){
+return;
+}
+     cout << stringBuffer.substr(pos + 2, stringBuffer.find("{*", pos ) - pos - 2) << endl;
+     pos = stringBuffer.rfind("*}", pos - 1);
+count++;
+}
+if(count == 2 && !Menu::promptMoreMessages()){
+    return;
+}
+cout << stringBuffer.substr(pos + 2, stringBuffer.find("{*", 1) - 2 - pos) << endl;
     wallFile.close();
 }
