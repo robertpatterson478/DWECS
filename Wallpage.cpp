@@ -19,6 +19,7 @@ WallPage::WallPage(string username){
 //uses rfind and friend and hashtag checking to find out
 //which messages and users to print.
 void WallPage::show(){
+    Menu::pageWelcome(username, TYPE_WALL);
     fstream wallFile(("Users/" + username + ".Messages").c_str(), fstream::in);
     if(wallFile.fail() || wallFile.peek() == std::ifstream::traits_type::eof()){
 		return; //if no messages

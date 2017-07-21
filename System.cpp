@@ -103,7 +103,7 @@ void System::createNewUser(){
     Menu::convertCase(username);
     if(isValidUser(username)){
         cout << "\nAlready a user! Signing In. . . \n";
-
+       Menu::userWelcome(username, RETURNING);
        if(currentUser != NULL){
          delete currentUser;
 	}
@@ -127,9 +127,12 @@ void System::changeUser(){
          delete currentUser;
 	}
         currentUser = new User(user);
+       Menu::userWelcome(user, RETURNING);
         return;
     }
-    cout << "\nSpecified user does not exist or could not be accessed. Please try again.\n";
+    cout << "\nSpecified user does not exist or could not be accessed. Please try again.\nCreating specified User. . ." << endl;
+    currentUser = new User(user);
+    Menu::userWelcome(user, !RETURNING);
 }
 
 //checks if the user has been created yet
