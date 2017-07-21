@@ -80,7 +80,17 @@ void System::post(){
     fstream postFile(("Users/" + currentUser -> toString() + ".Messages").c_str(), ios::out | ios::app);
     postFile << messageBuffer;
     postFile.close();
-    unsigned long hashpos = 0;
+    unsigned long hashpos =  messageBuffer.find("#");
+    string currentHash;
+    fstream* hashfiles;
+    while(hashpos < messageBuffer.length()){
+    currentHash = messageBuffer.substr(hashpos + 1, messageBuffer.find_first_not_of("abcdefghijklmnopqrstuvwxyzABCDEFGHIJKLMNOPQRSTUVWXYZ", hashpos + 1) - hashpos - 1);
+hashfiles = new fstream(("Topics/" + currentHash + ".Topic").c_str(), fstream::out | fstream::app);
+*(hashfiles) << "{*" << currentUser -> toString() << messageBuffer.substr(2, messageBuffer.length() - 2);
+hashfiles -> close();
+delete hashfiles;
+hashpos = messageBuffer.find("#", hashpos + 1);
+}
 }
 
 //creates a new user if input is not bad
@@ -92,7 +102,12 @@ void System::createNewUser(){
     }
     Menu::convertCase(username);
     if(isValidUser(username)){
-        cout << "\nAlready a user!\n";
+        cout << "\nAlready a user! Signing In. . . \n";
+
+       if(currentUser != NULL){
+         delete currentUser;
+	}
+        currentUser = new User(username);
         return;
     }
     if(username.find_first_not_of("abcdefghijklmnopqrstuvwxyzABCDEFGHIJKLMNOPQRSTUVWXYZ") != string::npos){
@@ -152,6 +167,7 @@ void System::quit(){
 void System::followHashtag(){
 	if(currentUser == NULL){
 		cout << "Not logged in!" << endl;
+return;
 		}
     string hashtag = Menu::getHashTag();
     if(hashtag.empty()){
