@@ -1,9 +1,9 @@
-// Lab 2: War Eagle Chat Group
+// Lab 3:     Distributed  War Eagle Chat Group
 // Name:      Robert Patterson
 // Class:     COMP 2710
 // Date:      07/03/17
 // E-Mail:    rlp0035@tigermail.auburn.edu
-// File:      RLP0035_2.cpp
+// File:      RLP0035_3.cpp
 //
 // Description: allows user to post as another social media site.
 // Users can can post, follow hashtags, friend users(friending is not mutual
@@ -83,6 +83,9 @@ void System::post(){
     unsigned long hashpos =  messageBuffer.find("#");
     string currentHash;
     fstream* hashfiles;
+    cout << endl << "             ========================";
+    cout << endl << "                 New Message Added" << endl;
+    cout <<         "             ========================" << endl;
     while(hashpos < messageBuffer.length()){
     currentHash = messageBuffer.substr(hashpos + 1, messageBuffer.find_first_not_of("abcdefghijklmnopqrstuvwxyzABCDEFGHIJKLMNOPQRSTUVWXYZ", hashpos + 1) - hashpos - 1);
 hashfiles = new fstream(("Topics/" + currentHash + ".Topic").c_str(), fstream::out | fstream::app);
